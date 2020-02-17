@@ -89,8 +89,8 @@ function Write-Parameter {
         [Parameter(Mandatory = $true, ValueFromPipeLineByPropertyName = $true)]$Name,
         [Alias('ParameterType')]
         [Parameter(Mandatory = $true, ValueFromPipeLineByPropertyName = $true)]$Type,
-        [Parameter(ValueFromPipeLineByPropertyName = $true)]$Mandatory,
-        [Parameter(ValueFromPipeLineByPropertyName = $true)]$isOptional,
+        [Parameter(ValueFromPipeLineByPropertyName = $true, ParameterSetName='Mandatory')]$Mandatory,
+        [Parameter(ValueFromPipeLineByPropertyName = $true, ParameterSetName='IsOptional')]$isOptional,
         [Parameter(ValueFromPipeLineByPropertyName = $true)]$Alias,
         [Parameter(ValueFromPipeLineByPropertyName = $true)]$Position,
         [Parameter(ValueFromPipeLineByPropertyName = $true)]$DefaultValue,
@@ -104,11 +104,18 @@ function Write-Parameter {
 
         # $name = ConvertTo-PascalCase $name
         # if ($MyInvocation.Line -match "\s-isOptional\s") {$mandatory = -not $mandatory}
-        $mandatory = ([string](-not $_.IsOptional)).toLower()
+        if ($PSCmdlet.ParameterSetName -eq 'IsOptional') {
+            $mandatory = ([string](-not $_.IsOptional)).toLower()
+        }
         $mandatory = $mandatory.toLower()
 
         # TODO: needs conversion to $Type- to a bool, quotes around strings, etc
         $defaultString = if ('' -ne $DefaultValue) {
+            $DefaultValue = switch ($DefaultValue) {
+                'True' {'$true'; break}
+                'False' {'$false'; break}
+                default {$DefaultValue; break}
+            }
             # $DefaultValue = [$type]$DefaultValue
             " = $DefaultValue"
         }

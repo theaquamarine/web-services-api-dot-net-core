@@ -45,7 +45,7 @@ Copyright = '(c) theaquamarine. All rights reserved.'
 # DotNetFrameworkVersion = ''
 
 # Minimum version of the common language runtime (CLR) required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
-# CLRVersion = ''
+# ClrVersion = ''
 
 # Processor architecture (None, X86, Amd64) required by this module
 # ProcessorArchitecture = ''
@@ -54,7 +54,7 @@ Copyright = '(c) theaquamarine. All rights reserved.'
 # RequiredModules = @()
 
 # Assemblies that must be loaded prior to importing this module
-RequiredAssemblies = @('PaperCut.dll')
+RequiredAssemblies = 'PaperCut.dll'
 
 # Script files (.ps1) that are run in the caller's environment prior to importing this module.
 # ScriptsToProcess = @()
@@ -72,7 +72,7 @@ RequiredAssemblies = @('PaperCut.dll')
 FunctionsToExport = '*'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-CmdletsToExport = '*'
+CmdletsToExport = 'Connect-PaperCutServer'
 
 # Variables to export from this module
 VariablesToExport = '*'

@@ -145,22 +145,9 @@ function Write-Parameter {
     }
 }
 
-# Can have 'using assembly PaperCut.dll', but doesn't matter as long as it's in RequiredAssemblies
-# Same probably true for PSPaperCut, it's in RootModule/NestedModules
-
-# [ServerCommandProxy].GetDeclaredMethods('AdjustUserAccountBalanceByCardNumber') |
-# [ServerCommandProxy].GetDeclaredMethods('AddNewUsers') |
-[PaperCut.ServerCommandProxy].GetMethods() |
-Sort-Object -Unique Name | # TODO: Cheat to deal with overloads
-% {
-    # skip stuff like equals and tostring
-    if ($_.DeclaringType.Name -eq 'Object') { return }
-
-
+    function Get-FunctionName {
     $prefix = 'PaperCut'
     $returntype = $_.ReturnType.FullName
-    # $commandName = $_.Name + 'Command'
-
     $noun = $_.Name
     $verb = if ($noun -eq 'ListUserGroups') {
         $noun = 'Groups'
@@ -203,6 +190,29 @@ Sort-Object -Unique Name | # TODO: Cheat to deal with overloads
 
     $noun = $prefix + $noun
 
+    "$verb-$noun"
+}
+
+# Can have 'using assembly PaperCut.dll', but doesn't matter as long as it's in RequiredAssemblies
+# Same probably true for PSPaperCut, it's in RootModule/NestedModules
+
+# [ServerCommandProxy].GetDeclaredMethods('AdjustUserAccountBalanceByCardNumber') |
+# [ServerCommandProxy].GetDeclaredMethods('AddNewUsers') |
+[PaperCut.ServerCommandProxy].GetMethods() |
+Sort-Object -Unique Name | # TODO: Cheat to deal with overloads
+# % {& {
+% {
+
+    # skip stuff like equals and tostring
+    if ($_.DeclaringType.Name -eq 'Object') { return }
+
+
+    $returntype = $_.ReturnType.FullName
+    # $commandName = $_.Name + 'Command'
+
+    $name = Get-FunctionName $_
+
+
     $parameters = $_.GetParameters()
 
     $assemblySource = $_.Module.FullyQualifiedName
@@ -220,7 +230,7 @@ Sort-Object -Unique Name | # TODO: Cheat to deal with overloads
     }
 
 
-    $functionDefinition = "function $verb-$noun {"
+    $functionDefinition = "function $name {"
 
     Write-output $functionDefinition
 
@@ -260,3 +270,4 @@ Sort-Object -Unique Name | # TODO: Cheat to deal with overloads
 
     Write-output "}`n"
 }
+# } > (Join-Path .\PSPaperCut\Public "$($_.Name).ps1")}

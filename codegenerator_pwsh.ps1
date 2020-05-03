@@ -1,8 +1,7 @@
 # run in a job or something to avoid polluting
-# start-job {cd C:\web-services-api-dot-net-core;.\codegenerator_pwsh.ps1 > .\PSPaperCut\Cmdlets.ps1}|wait-job|receive-job
+# start-job {cd $pwd;.\codegenerator.ps1}|wait-job|receive-job
 # TODO: handle overloaded optional parameters - eg AdjustUserAccountBalanceByCardNumber
 # TODO: treat overloads as separate parametersets
-# TODO: add Cmdlets to CmdletsToExport
 # TODO: some methods/cmdlets are superfluous - GetSharedAccountProperty and GetSharedAccountProperties should be same cmdlet
 # TODO: import methods should probably be import-, maybe start-
 # TODO: Combine Lookup methods into other cmdlets?
@@ -207,34 +206,26 @@ function Write-Parameter {
     "$verb-$noun"
 }
 
-# Can have 'using assembly PaperCut.dll', but doesn't matter as long as it's in RequiredAssemblies
-# Same probably true for PSPaperCut, it's in RootModule/NestedModules
+$PSPaperCutDir = Join-Path $PSScriptRoot 'PSPaperCut'
+$PublicFunctionDir = Join-Path $PSPaperCutDir 'Public'
+if (-not (Test-Path $PublicFunctionDir)) {mkdir $PublicFunctionDir}
 
-# [ServerCommandProxy].GetDeclaredMethods('AdjustUserAccountBalanceByCardNumber') |
-# [ServerCommandProxy].GetDeclaredMethods('AddNewUsers') |
 [PaperCut.ServerCommandProxy].GetMethods() |
 Sort-Object -Unique Name | # TODO: Cheat to deal with overloads
+? {$_.DeclaringType.Name -ne 'Object'} |
 % {& {
 # % {
-
-    # skip stuff like equals and tostring
-    if ($_.DeclaringType.Name -eq 'Object') { return }
 
     $indentunit = '    '
     $indentlevel = 0
 
-
-    $returntype = $_.ReturnType.FullName
-    # $commandName = $_.Name + 'Command'
-
-    $name = Get-FunctionName $_
-
-
     $parameters = $_.GetParameters()
 
-    $assemblySource = $_.Module.FullyQualifiedName
-    $xmlDocSource = $assemblySource.Replace('.dll', '.xml')
+    Write-Output "function $(Get-FunctionName $_) {"
 
+    $indentlevel ++
+
+    #region Comment-based help
     $membertype = $_.MemberType.ToString().Substring(0, 1)
     $parameterList = $parameters.ParameterType.Fullname -join ','
     $signature = $_.Name + '(' + $parameterList + ')'
@@ -242,23 +233,22 @@ Sort-Object -Unique Name | # TODO: Cheat to deal with overloads
     $xmlDocMemberName = $membertype + ':' + $typename + '.' + $signature
     # Write-Output ('# ' + $xmlDocMemberName)
 
+    $assemblySource = $_.Module.FullyQualifiedName
+    $xmlDocSource = $assemblySource.Replace('.dll', '.xml')
     [xml]$xmlDoc = if (Test-Path $xmlDocSource) {
         Get-Content $xmlDocSource
     }
 
-
-    Write-Output "function $name {"
-
-    $indentlevel ++
-
     Get-MemberSummary -MemberName $xmlDocMemberName -xmlDoc $xmlDoc | Write-MemberSummary
+    #endregion Comment-based help
 
+    #region Attributes
     Write-Output "$($indentunit * $indentlevel)[CmdletBinding()]"
+    Write-Output "$($indentunit * $indentlevel)$(Write-OutputTypeAttribute -Type $($_.ReturnType.FullName))"
+    #endregion Attributes
 
-    Write-Output "$($indentunit * $indentlevel)$(Write-OutputTypeAttribute -Type $returntype)"
-    # write-output $classDefinition
+    #region Param block
     Write-Output "$($indentunit * $indentlevel)param ("
-
 
     $selfParam = [pscustomobject]@{
         Name        = 'PaperCutServer';
@@ -270,23 +260,39 @@ Sort-Object -Unique Name | # TODO: Cheat to deal with overloads
         DefaultValue = '(Connect-PaperCutServer)'
     }
 
-    # $parameters += $selfParam
-
     ($parameters + $selfParam | Write-Parameter) -join ",`n`n"
     Write-Output "$($indentunit * $indentlevel))`n"
+    #endregion Param block
+
+    #region input processing methods
+    $beginblock, $processblock, $endblock = ''
 
     # Build the actual method call to execute
     $parameterString = ($parameters.Name | ConvertTo-PascalCase | % { "`$$_" }) -join ', '
     $outputCall = "`$PaperCutServer.$($_.Name)($parameterString)"
 
-    $processingMethods = @"
-    PROCESS {
-        $outputCall
-    }
-"@
+    $processblock += "$($indentunit * $indentlevel)PROCESS {`n"
+    $indentlevel++
+    $processblock += "$($indentunit * $indentlevel)$outputCall`n"
+    $indentlevel--
+    $processblock += "$($indentunit * $indentlevel)}"
 
-    write-output $processingMethods
+    if ($beginblock) {Write-Output $beginblock}
+    if ($processblock) {Write-Output $processblock}
+    if ($endblock) {Write-Output $endblock}
+    #endregion input processing methods
 
-    Write-output "}`n"
+    $indentlevel--
+    Write-output "$($indentunit * $indentlevel)}"
 # }
-} > (Join-Path .\PSPaperCut\Public "$(Get-FunctionName $_).ps1")}
+} | Out-File (Join-Path $PublicFunctionDir "$(Get-FunctionName $_).ps1") }
+
+
+# Ensure a file called PaperCut.dll exists in PSPaperCut folder to placate Update-ModuleManifest
+$PaperCutDllPath = Join-Path $PSPaperCutDir 'PaperCut.dll'
+if (-not (Test-Path $PaperCutDllPath)) {New-Item $PaperCutDllPath}
+
+$PSDFile = Join-Path $PSPaperCutDir 'PSPaperCut.psd1'
+$PublicFunctions = Join-Path $PublicFunctionDir '*.ps1'
+
+Update-ModuleManifest -Path $PSDFile -FunctionsToExport @(Get-ChildItem $PublicFunctions | Select-Object -ExpandProperty BaseName)

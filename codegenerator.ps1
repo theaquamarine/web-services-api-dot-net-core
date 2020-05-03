@@ -295,4 +295,8 @@ if (-not (Test-Path $PaperCutDllPath)) {New-Item $PaperCutDllPath}
 $PSDFile = Join-Path $PSPaperCutDir 'PSPaperCut.psd1'
 $PublicFunctions = Join-Path $PublicFunctionDir '*.ps1'
 
-Update-ModuleManifest -Path $PSDFile -FunctionsToExport @(Get-ChildItem $PublicFunctions | Select-Object -ExpandProperty BaseName)
+$functions = Get-ChildItem $PublicFunctions | Select-Object -ExpandProperty BaseName
+ $manifestfunctions = Import-PowerShellDataFile .\PSPaperCut\PSPaperCut.psd1|Select-Object -ExpandProperty FunctionsToExport
+$functions += $manifestfunctions
+$functions = $functions | Sort-Object -Unique
+Update-ModuleManifest -Path $PSDFile -FunctionsToExport $functions

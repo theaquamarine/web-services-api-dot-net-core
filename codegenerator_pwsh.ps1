@@ -200,8 +200,8 @@ function Write-Parameter {
 # [ServerCommandProxy].GetDeclaredMethods('AddNewUsers') |
 [PaperCut.ServerCommandProxy].GetMethods() |
 Sort-Object -Unique Name | # TODO: Cheat to deal with overloads
-# % {& {
-% {
+% {& {
+# % {
 
     # skip stuff like equals and tostring
     if ($_.DeclaringType.Name -eq 'Object') { return }
@@ -269,5 +269,5 @@ Sort-Object -Unique Name | # TODO: Cheat to deal with overloads
     write-output $processingMethods
 
     Write-output "}`n"
-}
-# } > (Join-Path .\PSPaperCut\Public "$($_.Name).ps1")}
+# }
+} > (Join-Path .\PSPaperCut\Public "$(Get-FunctionName $_).ps1")}

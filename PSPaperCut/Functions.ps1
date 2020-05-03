@@ -10,7 +10,7 @@ Adds a group as an admin group with default admin rights.
 [string] $GroupName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -31,7 +31,7 @@ Adds a user as an admin with default admin rights.
 [string] $Username,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -52,7 +52,7 @@ Add a new group to system's group list.  The caller is responsible for ensuring 
 [string] $GroupName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -97,7 +97,7 @@ Creates and sets up a new internal user account.  The (unique) username and pass
 [bool] $SendEmail = $false,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -118,7 +118,7 @@ Create a new shared account with the given name.
 [string] $SharedAccountName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -139,7 +139,7 @@ Trigger the process of adding a new user account. Assuming the user exists in th
 [string] $Username,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -152,7 +152,7 @@ function Add-PaperCutNewUsers {
 [OutputType("void")]
     param (
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -181,7 +181,7 @@ Add the group to the printer access group list.
 [string] $GroupName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -206,7 +206,7 @@ Allow the given group access to the given shared account without using a pin.
 [string] $GroupName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -231,7 +231,7 @@ Allow the given user access to the given shared account without using a pin.
 [string] $Username,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -256,7 +256,7 @@ Adds the user to the specified group
 [string] $GroupName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -285,7 +285,7 @@ Adjust a shared account's account balance by an adjustment amount. An adjustment
 [string] $Comment,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -318,7 +318,7 @@ Adjust a user's account balance by an adjustment amount. An adjustment bay be po
 [string] $AccountName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -347,7 +347,7 @@ Adjust a user's account balance.  User lookup is by card number.
 [string] $Comment,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -380,7 +380,7 @@ Adjust the account balance of all users in a group by an adjustment amount. An a
 [string] $AccountName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -413,7 +413,7 @@ Adjust a user's account balance by an adjustment amount (if there is credit avai
 [string] $AccountName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -450,7 +450,7 @@ Adjust a user's account balance by an adjustment amount (if there is credit avai
 [string] $AccountName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -466,7 +466,7 @@ function Test-PaperCutApplyDeviceSettings {
 [string] $DeviceName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -495,7 +495,7 @@ Import the internal users contained in the given tab-delimited import file.
 [bool] $OverwriteExistingPINs,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -524,7 +524,7 @@ Import the shared accounts contained in the given TSV import file.
 [bool] $DeleteNonExistentAccounts,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -549,7 +549,7 @@ Import the user card/ID numbers and PINs contained in the given tab-delimited im
 [bool] $OverwriteExistingPINs,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -574,7 +574,7 @@ Import the users contained in the given tab-delimited import file.
 [bool] $CreateNewUsers,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -595,7 +595,7 @@ Change the internal admin password.
 [string] $NewPassword,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -616,7 +616,7 @@ Delete a shared account from the system.  Use this method with care.  Deleting a
 [string] $SharedAccountName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -640,7 +640,7 @@ Delete/remove an existing user from the user list. Use this method with care.  C
 [bool] $RedactUserData = $false,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -665,7 +665,7 @@ Delete a printer.
 [string] $PrinterName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -694,7 +694,7 @@ Disable a printer for select period of time.
 [int] $DisableMins,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -719,7 +719,7 @@ Disable printing for a user for a specified period of time.
 [int] $DisableMins,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -744,7 +744,7 @@ Disable shared account for a specified period of time.
 [int] $DisableMins,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -769,7 +769,7 @@ Export user data based on a set of predefined CSV reports (The owner of these fi
 [string] $SaveLocation,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -800,7 +800,7 @@ function Test-PaperCutGenerateAdHocReport {
 [string] $SaveLocation,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -822,7 +822,7 @@ function Test-PaperCutGenerateScheduledReport {
 [string] $SaveLocation,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -843,7 +843,7 @@ Get the config value from the server.
 [string] $ConfigName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -864,7 +864,7 @@ Retrive all users in group.
 [string] $GroupName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -885,7 +885,7 @@ Get the group quota allocation settings on a given group.
 [string] $GroupName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -910,7 +910,7 @@ Get the page cost if, and only if, the printer is using the Simple Charging Mode
 [string] $PrinterName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -939,7 +939,7 @@ Gets a list printer properties.
 [string[]] $PropertyNames,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -968,7 +968,7 @@ Gets a printer property.
 [string] $PropertyName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -989,7 +989,7 @@ Gets a shared account's current balance.
 [string] $SharedAccountName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1010,7 +1010,7 @@ Get the shared account's overdraft mode
 [string] $SharedAccountName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1035,7 +1035,7 @@ Get multiple shared account properties at once (to save multiple calls).
 [string[]] $PropertyNames,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1060,7 +1060,7 @@ Gets a shared account property.
 [string] $PropertyName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1073,7 +1073,7 @@ function Get-PaperCutTaskStatus {
 [OutputType("PaperCut.GetTaskStatusResponse")]
     param (
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1086,7 +1086,7 @@ function Get-PaperCutTotalUsers {
 [OutputType("System.Int32")]
     param (
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1111,7 +1111,7 @@ Gets a user's current account balance.
 [string] $AccountName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1132,7 +1132,7 @@ Retrive all groups a user is a member of.
 [string] $UserName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1153,7 +1153,7 @@ Get the user's overdraft mode
 [string] $Username,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1178,7 +1178,7 @@ Get multiple user properties at once (to save multiple calls).
 [string[]] $PropertyNames,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1203,7 +1203,7 @@ Gets a user property.
 [string] $PropertyName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1224,7 +1224,7 @@ Test to see if a group associated with groupname exists in the system.
 [string] $GroupName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1245,7 +1245,7 @@ Test to see if a user associated with "username" exists in the system.
 [string] $Username,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1270,7 +1270,7 @@ List all printers (sorted by printer name) starting at 'offset' and ending at 'l
 [int] $Limit,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1295,7 +1295,7 @@ List all shared accounts (sorted by account name) starting at offset and ending 
 [int] $Limit,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1320,7 +1320,7 @@ List all user accounts (sorted by username) starting at 'offset' and ending at '
 [int] $Limit,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1345,7 +1345,7 @@ List all user groups (sorted by groupname) starting at 'offset' and ending at 'l
 [int] $Limit,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1378,7 +1378,7 @@ List all shared accounts (sorted by account name) that the user has access to, s
 [bool] $IgnoreAccountMode,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1399,7 +1399,7 @@ Looks up the user with the given user card number and returns their user name.  
 [string] $CardNo,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1415,7 +1415,7 @@ function Get-PaperCutUserNameByEmail {
 [string] $Email,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1436,7 +1436,7 @@ Looks up the user with the given user id number and returns their user name.  If
 [string] $IdNo,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1452,7 +1452,7 @@ function Get-PaperCutUserNameBySecondaryUserName {
 [string] $SecondaryUserName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1468,7 +1468,7 @@ function Get-PaperCutUsersByFullName {
 [string] $FullName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1481,7 +1481,7 @@ function Start-PaperCutGroupSync {
 [OutputType("void")]
     param (
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1494,7 +1494,7 @@ function Start-PaperCutOnlineBackup {
 [OutputType("void")]
     param (
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1507,7 +1507,7 @@ function Start-PaperCutUserAndGroupSync {
 [OutputType("void")]
     param (
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1532,7 +1532,7 @@ An advanced version of the user and group synchronization process providing cont
 [bool] $UpdateUserDetails,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1553,7 +1553,7 @@ Takes the details of a job and logs and charges as if it were a "real" job.  Job
 [string] $JobDetails,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1574,7 +1574,7 @@ Re-applies initial user settings on the given user. These initial settings are b
 [string] $Username,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1595,7 +1595,7 @@ Removes a group from the list of admin groups.
 [string] $GroupName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1616,7 +1616,7 @@ Removes an admin user from the list of admins.
 [string] $Username,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1637,7 +1637,7 @@ Removes the user group.
 [string] $GroupName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1666,7 +1666,7 @@ Removes the group from the printer access group list.
 [string] $GroupName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1691,7 +1691,7 @@ Revoke the given group's access to the given shared account.
 [string] $GroupName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1716,7 +1716,7 @@ Revoke the given user's access to the given shared account.
 [string] $Username,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1741,7 +1741,7 @@ Removes the user from the specified group.
 [string] $GroupName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1774,7 +1774,7 @@ Rename a printer.  This can be useful after migrating a print queue or print ser
 [string] $NewPrinterName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1799,7 +1799,7 @@ Rename an existing shared account.
 [string] $NewSharedAccountName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1824,7 +1824,7 @@ Rename a user account.  Useful when the user has been renamed in the domain / di
 [string] $NewUserName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1853,7 +1853,7 @@ Reset the counts (pages and job counts) associated with a printer.
 [string] $ResetBy,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1878,7 +1878,7 @@ Reset the counts (pages and job counts) associated with a user account.
 [string] $ResetBy,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1903,7 +1903,7 @@ Set the config value from the server. NOTE: Take care updating config values.  Y
 [string] $ConfigValue,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1936,7 +1936,7 @@ Set the group quota allocation settings on a given group.
 [double] $QuotaMaxAccumulation,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1965,7 +1965,7 @@ Method to set a simple single page cost using the Simple Charging Model.
 [double] $CostPerPage,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -1987,7 +1987,7 @@ function Set-PaperCutPrinterProperties {
 [string[,]] $PropertyNamesAndValues,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -2020,7 +2020,7 @@ Sets a printer property.
 [string] $PropertyValue,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -2049,7 +2049,7 @@ Set a shared account's account balance.
 [string] $Comment,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -2074,7 +2074,7 @@ Set the shared account's overdraft mode
 [string] $Mode,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -2099,7 +2099,7 @@ Set multiple shared account properties at once (to save multiple calls).
 [string[][]] $PropertyNamesAndValues,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -2128,7 +2128,7 @@ Sets a shared account property.
 [string] $PropertyValue,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -2161,7 +2161,7 @@ Set the balance on a user's account to a set value. This is conducted as a trans
 [string] $AccountName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -2194,7 +2194,7 @@ Set the balance for each member of a group to the given value.
 [string] $AccountName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -2222,7 +2222,7 @@ function Set-PaperCutUserAccountSelectionAdvancedPopup {
 [string] $DefaultSharedAccount,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -2247,7 +2247,7 @@ Set the user to Auto Charge to Personal
 [bool] $WithPopupConfirmation = $false,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -2276,7 +2276,7 @@ Set the user to Auto Charge to a Single Shared Account
 [bool] $ChargeToPersonal,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -2321,7 +2321,7 @@ Set the user to select an acccount from the popup list of approved accounts
 [string] $DefaultSharedAccount,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -2346,7 +2346,7 @@ Set the user's overdraft mode
 [string] $Mode,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -2371,7 +2371,7 @@ Set multiple user properties at once (to save multiple calls).
 [string[][]] $PropertyNamesAndValues,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -2400,7 +2400,7 @@ Sets a user property.
 [string] $PropertyValue,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -2421,7 +2421,7 @@ Test to see if a shared account exists.
 [string] $AccountName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -2442,7 +2442,7 @@ Syncs an existing group with the configured directory server, updates the group 
 [string] $GroupName,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -2467,7 +2467,7 @@ Apply the value of a card to a user's account.
 [string] $CardNumber,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 
@@ -2483,7 +2483,7 @@ function Test-PaperCutUserExists {
 [string] $Username,
 
 #The PaperCut server to use.
-[Alias("Server")][Parameter(Mandatory = $False, ValueFromPipelineByPropertyName = $true)]
+[Alias("Server")][Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
 [PaperCut.ServerCommandProxy] $PaperCutServer = (Connect-PaperCutServer)
     )
 

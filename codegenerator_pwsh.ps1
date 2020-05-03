@@ -105,9 +105,9 @@ function Write-Parameter {
         # $name = ConvertTo-PascalCase $name
         # if ($MyInvocation.Line -match "\s-isOptional\s") {$mandatory = -not $mandatory}
         if ($PSCmdlet.ParameterSetName -eq 'IsOptional') {
-            $mandatory = ([string](-not $_.IsOptional)).toLower()
+            $mandatory = -not $_.IsOptional
         }
-        $mandatory = $mandatory.toLower()
+        $mandatory = $mandatory.toString().toLower()
 
         # TODO: needs conversion to $Type- to a bool, quotes around strings, etc
         $defaultString = if ('' -ne $DefaultValue) {

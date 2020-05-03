@@ -40,10 +40,13 @@ function Write-MemberSummary {
     )
     if ($MemberSummary) {
         # TODO: break at period, use first sentence for synopsis and entiruty for description.
-        Write-Output '<#'
-        Write-Output '.SYNOPSIS'
-        Write-Output $($memberSummary.ToString().Trim() -replace "`n\s+", ' ')
-        Write-Output '#>'
+        Write-Output "$($indentunit * $indentlevel)<#"
+        $indentlevel++
+        Write-Output "$($indentunit * $indentlevel).SYNOPSIS"
+        $indentlevel++
+        Write-Output $(($indentunit * $indentlevel) + ($memberSummary.ToString().Trim() -replace "`n\s+", ' '))
+        $indentlevel = $indentlevel - 2
+        Write-Output "$($indentunit * $indentlevel)#>"
     }
 }
 
@@ -66,7 +69,7 @@ function Write-ParameterDocs {
         [Parameter(ValueFromPipeline)]$ParameterDescription
     )
     if ($ParameterDescription) {
-        Write-Output ('#' + $($ParameterDescription.ToString().Trim() -replace "`n\s+", ' ') + "`n")
+        Write-Output ($indentunit * $indentlevel + '#' + $($ParameterDescription.ToString().Trim() -replace "`n\s+", ' ') + "`n")
     }
 }
 
@@ -77,8 +80,7 @@ function Write-OutputTypeAttribute {
     # Void can't be used from C#, so special-case it
     if ($type -eq 'Void' -or $type -eq 'System.Void') { $type = 'void' }
     $attribute = "[OutputType(typeof($Type))]"
-    $attribute = "[OutputType(`"$Type`")]"
-    $attribute | Write-Output
+    "[OutputType(`"$Type`")]"
 }
 
 function Write-Parameter {
@@ -96,6 +98,10 @@ function Write-Parameter {
         [Parameter(ValueFromPipeLineByPropertyName = $true)]$DefaultValue,
         [Parameter(ValueFromPipeLineByPropertyName = $true)]$Description
     );
+
+    BEGIN {
+        $indentlevel++
+    }
 
     PROCESS {
         # if ($Description) {$Description | Write-ParameterDocs}
@@ -122,16 +128,23 @@ function Write-Parameter {
 
         $outputString = ''
 
-        if ($Description) { $outputString += "#$Description`n" }
+        if ($Description) { 
+            $outputString += $($indentunit * $indentlevel)
+            $outputString += "#$Description`n" 
+        }
         else { $outputString += Get-ParameterDocs -ParameterName $name -MemberName $xmlDocMemberName -xmlDoc $xmlDoc | Write-ParameterDocs }
 
         $name = ConvertTo-PascalCase $name
 
-        if ($alias) { $outputString += "[Alias(`"$($alias -join ',')`")]" }
+        if ($alias) {
+            $outputString += $($indentunit * $indentlevel)
+            $outputString += "[Alias(`"$($alias -join ',')`")]`n" 
+        }
 
         # ParameterAttribute
         # https://docs.microsoft.com/en-us/dotnet/api/System.Management.Automation.ParameterAttribute?view=pscore-6.2.0
         # Parameter keywords -join ",`n"
+        $outputString += $($indentunit * $indentlevel)
         $outputString += "[Parameter("
         $outputString += "Mandatory = `$$mandatory, "
         $outputString += if ($null -ne $Position) { $outputString += "Position = $position, " }
@@ -140,6 +153,7 @@ function Write-Parameter {
         $outputString += ")]`n"
 
         # The actual property
+        $outputString += $($indentunit * $indentlevel)
         $outputString += "[$type] `$$name$defaultString"
         Write-Output $outputString
     }
@@ -206,6 +220,9 @@ Sort-Object -Unique Name | # TODO: Cheat to deal with overloads
     # skip stuff like equals and tostring
     if ($_.DeclaringType.Name -eq 'Object') { return }
 
+    $indentunit = '    '
+    $indentlevel = 0
+
 
     $returntype = $_.ReturnType.FullName
     # $commandName = $_.Name + 'Command'
@@ -230,15 +247,17 @@ Sort-Object -Unique Name | # TODO: Cheat to deal with overloads
     }
 
 
-    $functionDefinition = "function $name {"
+    Write-Output "function $name {"
 
-    Write-output $functionDefinition
+    $indentlevel ++
 
     Get-MemberSummary -MemberName $xmlDocMemberName -xmlDoc $xmlDoc | Write-MemberSummary
 
-    Write-OutputTypeAttribute -Type $returntype
+    Write-Output "$($indentunit * $indentlevel)[CmdletBinding()]"
+
+    Write-Output "$($indentunit * $indentlevel)$(Write-OutputTypeAttribute -Type $returntype)"
     # write-output $classDefinition
-    Write-Output '    param ('
+    Write-Output "$($indentunit * $indentlevel)param ("
 
 
     $selfParam = [pscustomobject]@{
@@ -254,7 +273,7 @@ Sort-Object -Unique Name | # TODO: Cheat to deal with overloads
     # $parameters += $selfParam
 
     ($parameters + $selfParam | Write-Parameter) -join ",`n`n"
-    Write-Output "    )`n"
+    Write-Output "$($indentunit * $indentlevel))`n"
 
     # Build the actual method call to execute
     $parameterString = ($parameters.Name | ConvertTo-PascalCase | % { "`$$_" }) -join ', '

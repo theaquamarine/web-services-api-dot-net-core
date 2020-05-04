@@ -6,7 +6,7 @@
 # TODO: import methods should probably be import-, maybe start-
 # TODO: Combine Lookup methods into other cmdlets?
 
-using assembly ".\PaperCut\bin\Debug\netstandard2.0\publish\PaperCut.dll"
+using assembly ".\..\PaperCut\bin\Debug\netstandard2.0\publish\PaperCut.dll"
 
 function ConvertTo-PascalCase {
     # Capitalises first letter of string
@@ -206,7 +206,8 @@ function Write-Parameter {
     "$verb-$noun"
 }
 
-$PSPaperCutDir = Join-Path $PSScriptRoot 'PSPaperCut'
+# $PSPaperCutDir = Join-Path $PSScriptRoot 'PSPaperCut'
+$PSPaperCutDir = $PSScriptRoot
 $PublicFunctionDir = Join-Path $PSPaperCutDir 'Public'
 if (-not (Test-Path $PublicFunctionDir)) {mkdir $PublicFunctionDir}
 
@@ -296,7 +297,4 @@ $PSDFile = Join-Path $PSPaperCutDir 'PSPaperCut.psd1'
 $PublicFunctions = Join-Path $PublicFunctionDir '*.ps1'
 
 $functions = Get-ChildItem $PublicFunctions | Select-Object -ExpandProperty BaseName
- $manifestfunctions = Import-PowerShellDataFile .\PSPaperCut\PSPaperCut.psd1|Select-Object -ExpandProperty FunctionsToExport
-$functions += $manifestfunctions
-$functions = $functions | Sort-Object -Unique
 Update-ModuleManifest -Path $PSDFile -FunctionsToExport $functions

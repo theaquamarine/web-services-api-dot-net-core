@@ -206,6 +206,22 @@ function Write-Parameter {
     "$verb-$noun"
 }
 
+function Test-IsStateChangingFunction ($functionname) {
+    if ($functionname.startswith('New') -or 
+        $functionname.startswith('New') -or 
+        $functionname.startswith('Set') -or 
+        $functionname.startswith('Remove') -or 
+        # $functionname.startswith('Start') -or  # The Start-blah functions are particularly messy, so skip them.
+        $functionname.startswith('Stop') -or 
+        $functionname.startswith('Restart') -or 
+        $functionname.startswith('Reset') -or 
+        $functionname.startswith('Update')) {
+            $true
+        } else {
+            $false
+        }
+}
+
 # $PSPaperCutDir = Join-Path $PSScriptRoot 'PSPaperCut'
 $PSPaperCutDir = $PSScriptRoot
 $PublicFunctionDir = Join-Path $PSPaperCutDir 'Public'
@@ -222,7 +238,8 @@ Sort-Object -Unique Name | # TODO: Cheat to deal with overloads
 
     $parameters = $_.GetParameters()
 
-    Write-Output "function $(Get-FunctionName $_) {"
+    $functionname = Get-FunctionName $_
+    Write-Output "function $functionname {"
 
     $indentlevel ++
 
@@ -244,7 +261,12 @@ Sort-Object -Unique Name | # TODO: Cheat to deal with overloads
     #endregion Comment-based help
 
     #region Attributes
-    Write-Output "$($indentunit * $indentlevel)[CmdletBinding()]"
+    $cmdletbinding = if (Test-IsStateChangingFunction $functionname) {
+        '[CmdletBinding(SupportsShouldProcess = $true)]'
+    } else {
+        '[CmdletBinding()]'
+    }
+    Write-Output "$($indentunit * $indentlevel)$cmdletbinding"
     Write-Output "$($indentunit * $indentlevel)$(Write-OutputTypeAttribute -Type $($_.ReturnType.FullName))"
     #endregion Attributes
 
@@ -268,15 +290,28 @@ Sort-Object -Unique Name | # TODO: Cheat to deal with overloads
     #region input processing methods
     $beginblock, $processblock, $endblock = ''
 
-    # Build the actual method call to execute
-    $parameterString = ($parameters.Name | ConvertTo-PascalCase | % { "`$$_" }) -join ', '
-    $outputCall = "`$PaperCutServer.$($_.Name)($parameterString)"
-
     $processblock += "$($indentunit * $indentlevel)PROCESS {`n"
     $indentlevel++
-    $processblock += "$($indentunit * $indentlevel)$outputCall`n"
+    # Build the actual method call to execute
+    $parameterString = ($parameters.Name | ConvertTo-PascalCase | % { "`$$_" }) -join ', '
+    $methodcall = "`$PaperCutServer.$($_.Name)($parameterString)"
+
+    $outputCall = if (Test-IsStateChangingFunction $functionname) {
+            "if (`$PSCmdlet.ShouldProcess(`$" + 
+            ($parameters | Select-Object -First 1 -ExpandProperty Name) + 
+            ", '$($_.Name)')) {`n" +
+            "$($indentunit * 1)$methodcall`n" +
+            "}"
+        } else {
+            $methodcall
+        }
+
+    # $processblock += "$($indentunit * $indentlevel)$outputCall`n"
+    # $processblock += "$($indentunit * $indentlevel)"
+    $processblock += "$($indentunit * $indentlevel)"
+    $processblock += $outputcall -split "`n" -join "`n$($indentunit * $indentlevel)"
     $indentlevel--
-    $processblock += "$($indentunit * $indentlevel)}"
+    $processblock += "`n$($indentunit * $indentlevel)}"
 
     if ($beginblock) {Write-Output $beginblock}
     if ($processblock) {Write-Output $processblock}

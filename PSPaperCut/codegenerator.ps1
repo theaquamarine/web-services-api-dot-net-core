@@ -280,7 +280,7 @@ Sort-Object -Unique Name | # TODO: Cheat to deal with overloads
         Alias       = 'Server';
         Position    = $($parameters.Count);
         Description = 'The PaperCut server to use.';
-        DefaultValue = '(Connect-PaperCutServer)'
+        DefaultValue = '(Get-PaperCutServer)'
     }
 
     ($parameters + $selfParam | Write-Parameter) -join ",`n`n"

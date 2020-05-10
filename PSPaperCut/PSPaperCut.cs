@@ -4,7 +4,7 @@ namespace PaperCut.PSPaperCut
 {
     /// <summary>
     /// <para type="synopsis">
-    ///  The constructor.
+    ///  Set up a connection to a PaperCut server.
     ///  </para>
     /// </summary>
     [Cmdlet("Connect","PaperCutServer")]
@@ -49,7 +49,12 @@ namespace PaperCut.PSPaperCut
 
         protected override void ProcessRecord()
         {
-            WriteObject(new ServerCommandProxy(Server, Port, AuthToken));
+            ServerCommandProxy scp =  new ServerCommandProxy(Server, Port, AuthToken);
+            // TODO: script scope
+            // TODO: make updating variable optional
+            SessionState.PSVariable.Set("PaperCutServer", scp);
+            // TODO: -PassThru parameter?
+            WriteObject(scp);
         }
     }
 }

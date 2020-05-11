@@ -112,7 +112,6 @@ function Write-Parameter {
         if ($PSCmdlet.ParameterSetName -eq 'IsOptional') {
             $mandatory = -not $_.IsOptional
         }
-        $mandatory = $mandatory.toString().toLower()
 
         # TODO: needs conversion to $Type- to a bool, quotes around strings, etc
         $defaultString = if ('' -ne $DefaultValue) {
@@ -145,10 +144,10 @@ function Write-Parameter {
         # Parameter keywords -join ",`n"
         $outputString += $($indentunit * $indentlevel)
         $outputString += "[Parameter("
-        $outputString += "Mandatory = `$$mandatory, "
-        $outputString += if ($null -ne $Position) { $outputString += "Position = $position, " }
-        if ($Position -eq 0) { $outputString += "ValueFromPipeline = `$true, " }
-        $outputString += "ValueFromPipelineByPropertyName = `$true"
+        $outputString += if ($Mandatory) {'Mandatory, '}
+        $outputString += if ($null -ne $Position) { "Position = $position, " } # Allow Position = 0
+        if ($Position -eq 0) { $outputString += "ValueFromPipeline, " }
+        $outputString += "ValueFromPipelineByPropertyName"
         $outputString += ")]`n"
 
         # The actual property

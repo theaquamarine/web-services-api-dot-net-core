@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>PSPaperCut</AssemblyName>
+    <AssemblyName>PaperCut.PS</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,8 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PaperCut\PaperCut.csproj" />
-    <None Update="PSPaperCut.psd1" CopyToOutputDirectory="Always" />
-    <None Update="PSPaperCut.psm1" CopyToOutputDirectory="Always" />
+    <None Update="PaperCut.psd1" CopyToOutputDirectory="Always" />
+    <None Update="PaperCut.psm1" CopyToOutputDirectory="Always" />
     <None Update="Public\**" CopyToOutputDirectory="Always" />
     <None Update="Private\**" CopyToOutputDirectory="Always" />
     <None Update="lib\**" CopyToOutputDirectory="Always" />

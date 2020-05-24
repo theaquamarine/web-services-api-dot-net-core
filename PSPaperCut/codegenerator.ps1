@@ -221,7 +221,6 @@ function Test-IsStateChangingFunction ($functionname) {
         }
 }
 
-# $PSPaperCutDir = Join-Path $PSScriptRoot 'PSPaperCut'
 $PSPaperCutDir = $PSScriptRoot
 $PublicFunctionDir = Join-Path $PSPaperCutDir 'Public'
 if (-not (Test-Path $PublicFunctionDir)) {mkdir $PublicFunctionDir}
@@ -327,7 +326,7 @@ Sort-Object -Unique Name | # TODO: Cheat to deal with overloads
 $PaperCutDllPath = Join-Path $PSPaperCutDir 'PaperCut.dll'
 if (-not (Test-Path $PaperCutDllPath)) {New-Item $PaperCutDllPath}
 
-$PSDFile = Join-Path $PSPaperCutDir 'PSPaperCut.psd1'
+$PSDFile = Join-Path $PSPaperCutDir 'PaperCut.psd1'
 $PublicFunctions = Join-Path $PublicFunctionDir '*.ps1'
 
 $functions = Get-ChildItem $PublicFunctions | Select-Object -ExpandProperty BaseName

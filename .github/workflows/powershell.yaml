@@ -16,7 +16,7 @@ jobs:
     - name: Upload Module Artifacts
       uses: actions/upload-artifact@v1
       with:
-        name: PSPaperCut
+        name: PaperCut
         path: ./PSPaperCut/bin/Release/netstandard2.0/publish
 
   pwsh:
@@ -33,9 +33,9 @@ jobs:
     - name: Download Module Artifacts
       uses: actions/download-artifact@v1
       with:
-        name: PSPaperCut
+        name: PaperCut
     - name: PowerShell Core Import-Module
-      run: Import-Module ./PSPaperCut
+      run: Import-Module ./PaperCut
       shell: pwsh
 
   powershell:
@@ -49,7 +49,7 @@ jobs:
     - name: Download Module Artifacts
       uses: actions/download-artifact@v1
       with:
-        name: PSPaperCut
+        name: PaperCut
     - name: Windows PowerShell Import-Module
-      run: Import-Module ./PSPaperCut
+      run: Import-Module ./PaperCut
       shell: powershell

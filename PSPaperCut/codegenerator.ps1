@@ -206,7 +206,7 @@ function Write-Parameter {
 }
 
 function Test-IsStateChangingFunction ($functionname) {
-    if ($functionname.startswith('New') -or 
+    if ($functionname.startswith('Add') -or 
         $functionname.startswith('New') -or 
         $functionname.startswith('Set') -or 
         $functionname.startswith('Remove') -or 

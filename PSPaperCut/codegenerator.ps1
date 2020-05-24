@@ -169,6 +169,9 @@ function Write-Parameter {
         $noun = 'GroupsByUser'
         'Get'
     }
+    elseif ($noun -eq 'AddNewUsers') {
+        'Start'
+    }
     elseif ($noun.StartsWith('List')) {
         $noun = $noun.Substring(4)
         'Get'

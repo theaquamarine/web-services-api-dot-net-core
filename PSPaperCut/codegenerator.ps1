@@ -161,51 +161,35 @@ function Write-Parameter {
     $prefix = 'PaperCut'
     $returntype = $_.ReturnType.FullName
     $noun = $_.Name
-    $verb = if ($noun -eq 'ListUserGroups') {
-        $noun = 'Groups'
-        'Get'
-    }
-    elseif ($noun -eq 'GetUserGroups') {
-        $noun = 'GroupsByUser'
-        'Get'
-    }
-    elseif ($noun -eq 'AddNewUsers') {
-        'Start'
-    }
-    elseif ($noun.StartsWith('List')) {
-        $noun = $noun.Substring(4)
-        'Get'
-    }
-    elseif ($noun.StartsWith('LookUp')) {
-        $noun = $noun.Substring(6)
-        'Get'
-    }
-    elseif ($noun.StartsWith('Delete')) {
-        $noun = $noun.Substring(6)
-        'Remove'
-    }
-    elseif ($noun.StartsWith('Perform')) {
-        $noun = $noun.Substring(7)
-        'Start'
-    }
-    elseif ($noun.StartsWith('Adjust')) {
-        # Intentionally not removing 'Adjust'
-        'Invoke'
-    }
-    elseif ($returntype -eq 'Boolean' -or $returntype -eq 'System.Boolean') { 'Test' } # Not perfect, there are several methods which return bool for success
-    elseif ((Get-Verb).Verb | ? { $noun.StartsWith($_) }) {
-        # if the name starts with an approved verb, use that
-        $verb = (Get-Verb).Verb | ? { $noun.StartsWith($_) }
-        $noun = $noun.Substring($($verb.Length))
-        $verb
-    }
-    else {
-        'Invoke'
+
+    # Adjust some specific names
+    $noun = switch ($noun) {
+        'ListUserGroups' {'ListGroups'}
+        'GetUserGroups' {'GetGroupsByUser'}
+        'AddNewUsers' {'StartAddNewUsers'}
+        default {$noun}
     }
 
-    $noun = $prefix + $noun
+    # Not perfect, there are several methods which return bool for success
+    if (($returntype -eq 'Boolean' -or $returntype -eq 'System.Boolean') -and
+        -not ($noun.StartsWith('Adjust'))) {
+        $noun = 'Test' + $noun
+    } 
 
-    "$verb-$noun"
+    # Align to PowerShell verbs
+    $noun = $noun `
+        -replace '^List','Get' `
+        -replace '^Lookup','Get' `
+        -replace '^Delete','Remove' `
+        -replace '^Perform', 'Start' `
+        -replace '^Adjust', 'InvokeAdjust' # Intentionally not removing 'Adjust'
+
+    # if the name starts with an approved verb, use that, else use Invoke
+    $verb = (Get-Verb).Verb | ? { $noun.StartsWith($_) }
+    $noun = $noun.Substring($($verb.Length))
+    if (-not $verb) { $verb = 'Invoke'}
+
+    "$verb-$prefix$noun"
 }
 
 function Test-IsStateChangingFunction ($functionname) {

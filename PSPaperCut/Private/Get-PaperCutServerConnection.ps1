@@ -1,4 +1,4 @@
-function Get-PaperCutServer{
+function Get-PaperCutServerConnection {
     <#
         .SYNOPSIS
             Returns a PaperCut server if connected, or prompts if not.
@@ -6,6 +6,6 @@ function Get-PaperCutServer{
     if ($script:PaperCutServer) {
         $script:PaperCutServer
     } else {
-        Connect-PaperCutServer
+        Connect-PaperCutServer -ErrorAction Stop
     }
 }

@@ -164,30 +164,44 @@ function Write-Parameter {
 
     # Adjust some specific names
     $noun = switch ($noun) {
-        'ListUserGroups' {'ListGroups'}
-        'GetUserGroups' {'GetGroupsByUser'}
+        'AddNewGroup' {'NewUserGroup'}
         'AddNewUsers' {'StartAddNewUsers'}
+        'AddUserToGroup' {'AddUserGroupMember'}
+        'DeleteExistingSharedAccount' {'RemoveSharedAccount'}
+        'DeleteExistingUser' {'RemoveUser'}
+        'GetGroupMembers' {'GetUserGroupMembers'}
+        'GetUserGroups' {'GetUserGroupMembership'}
+        'GroupExists' {'TestGroupExists'}
+        'ReapplyInitialUserSettings' {'ResetUserSettings'}
+        'UserExists' {'TestUserExists'}
         default {$noun}
     }
 
-    # Not perfect, there are several methods which return bool for success
-    if (($returntype -eq 'Boolean' -or $returntype -eq 'System.Boolean') -and
-        -not ($noun.StartsWith('Adjust'))) {
-        $noun = 'Test' + $noun
-    } 
-
     # Align to PowerShell verbs
     $noun = $noun `
+        -replace '^AddNew','New' `
+        -replace '^Apply','Update' `
+        -replace '^BatchImport','Import' `
+        -replace '^Generate','Get' `
         -replace '^List','Get' `
         -replace '^Lookup','Get' `
         -replace '^Delete','Remove' `
+        -replace '^Change', 'Set' `
         -replace '^Perform', 'Start' `
         -replace '^Adjust', 'InvokeAdjust' # Intentionally not removing 'Adjust'
 
     # if the name starts with an approved verb, use that, else use Invoke
     $verb = (Get-Verb).Verb | ? { $noun.StartsWith($_) }
     $noun = $noun.Substring($($verb.Length))
-    if (-not $verb) { $verb = 'Invoke'}
+    if (-not $verb) { 
+        # Not perfect, there are several methods which return bool for success
+        if ($returntype -eq 'Boolean' -or $returntype -eq 'System.Boolean') {
+            # $noun = 'Test' + $noun
+            $verb = 'Test'
+        } else {
+            $verb = 'Invoke'
+        }
+    }
 
     "$verb-$prefix$noun"
 }
@@ -201,6 +215,7 @@ function Test-IsStateChangingFunction ($functionname) {
         $functionname.startswith('Stop') -or 
         $functionname.startswith('Restart') -or 
         $functionname.startswith('Reset') -or 
+        $functionname.startswith('Sync') -or 
         $functionname.startswith('Update')) {
             $true
         } else {
